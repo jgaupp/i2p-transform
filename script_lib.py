@@ -266,6 +266,9 @@ class Script(ScriptMixin, enum.Enum):
     [
         # Keep sorted
         condition,
+        condition_finalize,
+        condition_group,
+        condition_initialize,
         death,
         death_cause,
         demographic,
@@ -293,6 +296,9 @@ class Script(ScriptMixin, enum.Enum):
                             'Oracle/' + fname).decode('utf-8')
         for fname in [
                 'condition.sql',
+                'condition_finalize.sql',
+                'condition_group.sql',
+                'condition_initialize.sql',
                 'death.sql',
                 'death_cause.sql',
                 'demographic.sql',
