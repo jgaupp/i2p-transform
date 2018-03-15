@@ -1,37 +1,5 @@
 /** harvest - create and populate the harvest table.
 */
-select conditionid from condition where 'dep' = 'condition_finalize.sql'
-/
-select patid from death where 'dep' = 'death_finalize.sql'
-/
-select patid from death_cause where 'dep' = 'death_cause.sql'
-/
-select diagnosisid from diagnosis where 'dep' = 'diagnosis_finalize.sql'
-/
-select dispensingid from dispensing where 'dep' = 'dispensing.sql'
-/
-select patid from enrollment where 'dep' = 'enrollment.sql'
-/
-select lab_result_cm_id from lab_result_cm where 'dep' = 'lab_result_cm.sql'
-/
-select medadminid from med_admin where 'dep' = 'med_admin.sql'
-/
-select obsclinid from obs_clin where 'dep' = 'obs_clin.sql'
-/
-select obsgenid from obs_gen where 'dep' = 'obs_gen.sql'
-/
-select patid from pcornet_trial where 'dep' = 'pcornet_trial.sql'
-/
-select prescribingid from prescribing where 'dep' = 'prescribing.sql'
-/
-select pro_cm_id from pro_cm where 'dep' = 'pro_cm.sql'
-/
-select proceduresid from procedures where 'dep' = 'procedures.sql'
-/
-select providerid from provider where 'dep' = 'provider.sql'
-/
-select vitalid from vital where 'dep' = 'vital.sql'
-/
 BEGIN
 PMN_DROPSQL('DROP TABLE harvest');
 END;
@@ -136,4 +104,3 @@ END;
 insert into cdm_status (status, last_update, records) select 'harvest', sysdate, count(*) from harvest
 /
 select 1 from cdm_status where status = 'harvest'
---SELECT count(NETWORKID) from Harvest where rownum = 1

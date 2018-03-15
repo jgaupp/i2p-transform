@@ -26,4 +26,4 @@ END;
 /
 insert into cdm_status (status, last_update, records) select 'diagnosis_finalize', sysdate, count(*) from diagnosis
 /
-select 1 from diagnosis where rownum = 1
+select 1 from cdm_status where status = 'diagnosis_finalize'

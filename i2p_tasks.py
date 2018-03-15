@@ -94,7 +94,6 @@ class condition_finalize(CDMScriptTask):
     def requires(self):
         return CDMScriptTask.requires(self) + [condition_wrapper()]
 
-
 class condition_group(CDMPatientGroupTask):
     script = Script.condition_group
 
@@ -129,7 +128,7 @@ class death_wrapper(_PatientNumGrouped):
 class death_cause(CDMScriptTask):
     script = Script.death_cause
 
-
+'''
 class demographic_finalize(CDMScriptTask):
     script = Script.demographic_finalize
 
@@ -147,7 +146,7 @@ class demographic_intialize(CDMScriptTask):
 
 class demographic_wrapper(_PatientNumGrouped):
     group_tasks = [demographic_group]
-
+'''
 
 class diagnosis_finalize(CDMScriptTask):
     script = Script.diagnosis_finalize
@@ -167,7 +166,7 @@ class diagnosis_initialize(CDMScriptTask):
 class diagnosis_wrapper(_PatientNumGrouped):
     group_tasks = [diagnosis_group]
 
-
+'''
 class dispensing_finalize(CDMScriptTask):
     script = Script.dispensing_finalize
 
@@ -223,12 +222,20 @@ class enrollment_initialize(CDMScriptTask):
 
 class enrollment_wrapper(_PatientNumGrouped):
     group_tasks = [enrollment_group]
+'''
 
 
 class harvest(CDMScriptTask):
     script = Script.harvest
 
+    def requires(self):
+        return CDMScriptTask.requires(self) + [condition_finalize(), death_finalize(), death_cause(), diagnosis_finalize(),
+                                               dispensing(), enrollment(), lab_result_cm(), med_admin(), obs_clin(),
+                                               obs_gen(), pcornet_trial(), prescribing(), pro_cm(), procedures(),
+                                               provider(), vital()]
 
+
+'''
 class lab_result_cm_finalize(CDMScriptTask):
     script = Script.lab_result_cm_finalize
 
@@ -265,7 +272,7 @@ class med_admin_initialize(CDMScriptTask):
 
 class med_admin_wrapper(_PatientNumGrouped):
     group_tasks = [med_admin_group]
-
+'''
 
 class obs_clin(CDMScriptTask):
     script = Script.obs_clin
@@ -282,11 +289,14 @@ class pcornet_init(CDMScriptTask):
 class pcornet_loader(CDMScriptTask):
     script = Script.pcornet_loader
 
+    def requires(self):
+        return CDMScriptTask.requires(self) + [harvest()]
+
 
 class pcornet_trial(CDMScriptTask):
     script = Script.pcornet_trial
 
-
+'''
 class prescribing_finalize(CDMScriptTask):
     script = Script.prescribing_finalize
 
@@ -304,12 +314,14 @@ class prescribing_initialize(CDMScriptTask):
 
 class prescribing_wrapper(_PatientNumGrouped):
     group_tasks = [prescribing_group]
+'''
 
 
 class pro_cm(CDMScriptTask):
     script = Script.pro_cm
 
 
+'''
 class procedures_finalize(CDMScriptTask):
     script = Script.procedures_finalize
 
@@ -365,3 +377,47 @@ class vital_initialize(CDMScriptTask):
 
 class vital_wrapper(_PatientNumGrouped):
     group_tasks = [vital_group]
+'''
+
+
+##TODO update classes below to group processing
+
+
+class demographic(CDMScriptTask):
+    script = Script.demographic
+
+
+class dispensing(CDMScriptTask):
+    script = Script.dispensing
+
+
+class encounter(CDMScriptTask):
+    script = Script.encounter
+
+
+class enrollment(CDMScriptTask):
+    script = Script.enrollment
+
+
+class lab_result_cm(CDMScriptTask):
+    script = Script.lab_result_cm
+
+
+class med_admin(CDMScriptTask):
+    script = Script.med_admin
+
+
+class prescribing(CDMScriptTask):
+    script = Script.prescribing
+
+
+class procedures(CDMScriptTask):
+    script = Script.procedures
+
+
+class provider(CDMScriptTask):
+    script = Script.provider
+
+
+class vital(CDMScriptTask):
+    script = Script.vital
