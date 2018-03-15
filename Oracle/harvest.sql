@@ -1,12 +1,12 @@
 /** harvest - create and populate the harvest table.
 */
-select conditionid from condition where 'dep' = 'condition.sql'
+select conditionid from condition where 'dep' = 'condition_finalize.sql'
 /
-select patid from death where 'dep' = 'death.sql'
+select patid from death where 'dep' = 'death_finalize.sql'
 /
 select patid from death_cause where 'dep' = 'death_cause.sql'
 /
-select diagnosisid from diagnosis where 'dep' = 'diagnosis.sql'
+select diagnosisid from diagnosis where 'dep' = 'diagnosis_finalize.sql'
 /
 select dispensingid from dispensing where 'dep' = 'dispensing.sql'
 /

@@ -55,82 +55,6 @@ class _PatientNumGrouped(luigi.WrapperTask):
         return deps
 
 
-class condition(CDMScriptTask):
-    script = Script.condition
-
-
-class condition_finalize(CDMScriptTask):
-    script = Script.condition_finalize
-
-    def requires(self):
-        deps1 = CDMScriptTask.requires(self)
-        return deps1 + [condition_group()]
-
-
-class condition_group_task(CDMPatientGroupTask):
-    script = Script.condition_group
-
-
-class condition_initialize(CDMScriptTask):
-    script = Script.condition_initialize
-
-
-class condition_group(_PatientNumGrouped):
-    group_tasks = [condition_group_task]
-
-
-class death(CDMScriptTask):
-    script = Script.death
-
-
-class death_cause(CDMScriptTask):
-    script = Script.death_cause
-
-
-class demographic(CDMScriptTask):
-    script = Script.demographic
-
-
-class diagnosis(CDMScriptTask):
-    script = Script.diagnosis
-
-
-class dispensing(CDMScriptTask):
-    script = Script.dispensing
-
-
-class encounter(CDMScriptTask):
-    script = Script.encounter
-
-
-class enrollment(CDMScriptTask):
-    script = Script.enrollment
-
-
-class harvest(CDMScriptTask):
-    script = Script.harvest
-
-
-class lab_result_cm(CDMScriptTask):
-    script = Script.lab_result_cm
-
-
-class med_admin(CDMScriptTask):
-    script = Script.med_admin
-
-
-class med_admin_init(CDMScriptTask):
-    script = Script.med_admin_init
-
-
-class obs_clin(CDMScriptTask):
-    script = Script.obs_clin
-
-
-class obs_gen(CDMScriptTask):
-    script = Script.obs_gen
-
-
 class patient_chunks_survey(SqlScriptTask):
     script = Script.patient_chunks_survey
     patient_chunks = IntParam(default=10)
@@ -164,6 +88,193 @@ class patient_chunks_survey(SqlScriptTask):
                 return []
 
 
+class condition_finalize(CDMScriptTask):
+    script = Script.condition_finalize
+
+    def requires(self):
+        return CDMScriptTask.requires(self) + [condition_wrapper()]
+
+
+class condition_group(CDMPatientGroupTask):
+    script = Script.condition_group
+
+
+class condition_initialize(CDMScriptTask):
+    script = Script.condition_initialize
+
+
+class condition_wrapper(_PatientNumGrouped):
+    group_tasks = [condition_group]
+
+
+class death_finalize(CDMScriptTask):
+    script = Script.death_finalize
+
+    def requires(self):
+        return CDMScriptTask.requires(self) + [death_wrapper()]
+
+
+class death_group(CDMPatientGroupTask):
+    script = Script.death_group
+
+
+class death_initialize(CDMScriptTask):
+    script = Script.death_initialize
+
+
+class death_wrapper(_PatientNumGrouped):
+    group_tasks = [death_group]
+
+
+class death_cause(CDMScriptTask):
+    script = Script.death_cause
+
+
+class demographic_finalize(CDMScriptTask):
+    script = Script.demographic_finalize
+
+    def requires(self):
+        return CDMScriptTask.requires(self) + [demographic_wrapper()]
+
+
+class demographic_group(CDMPatientGroupTask):
+    script = Script.demographic_group
+
+
+class demographic_intialize(CDMScriptTask):
+    script = Script.demographic_initialize
+
+
+class demographic_wrapper(_PatientNumGrouped):
+    group_tasks = [demographic_group]
+
+
+class diagnosis_finalize(CDMScriptTask):
+    script = Script.diagnosis_finalize
+
+    def requires(self):
+        return CDMScriptTask.requires(self) + [diagnosis_wrapper()]
+
+
+class diagnosis_group(CDMPatientGroupTask):
+    script = Script.diagnosis_group
+
+
+class diagnosis_initialize(CDMScriptTask):
+    script = Script.diagnosis_initialize
+
+
+class diagnosis_wrapper(_PatientNumGrouped):
+    group_tasks = [diagnosis_group]
+
+
+class dispensing_finalize(CDMScriptTask):
+    script = Script.dispensing_finalize
+
+    def requires(self):
+        return CDMScriptTask.requires(self) + [dispensing_wrapper()]
+
+
+class dispensing_group(CDMPatientGroupTask):
+    script = Script.dispensing_group
+
+
+class dispensing_initialize(CDMScriptTask):
+    script = Script.dispensing_initialize
+
+
+class dispensing_wrapper(_PatientNumGrouped):
+    group_tasks = [dispensing_group]
+
+
+class encounter_finalize(CDMScriptTask):
+    script = Script.encounter_finalize
+
+    def requires(self):
+        return CDMScriptTask.requires(self) + [encounter_wrapper()]
+
+
+class encounter_group(CDMPatientGroupTask):
+    script = Script.encounter_group
+
+
+class encounter_initialize(CDMScriptTask):
+    script = Script.encounter_initialize
+
+
+class encounter_wrapper(_PatientNumGrouped):
+    group_tasks = [encounter_group]
+
+
+class enrollment_finalize(CDMScriptTask):
+    script = Script.enrollment_finalize
+
+    def requires(self):
+        return CDMScriptTask.requires(self) + [enrollment_wrapper()]
+
+
+class enrollment_group(CDMPatientGroupTask):
+    script = Script.enrollment_group
+
+
+class enrollment_initialize(CDMScriptTask):
+    script = Script.enrollment_initialize
+
+
+class enrollment_wrapper(_PatientNumGrouped):
+    group_tasks = [enrollment_group]
+
+
+class harvest(CDMScriptTask):
+    script = Script.harvest
+
+
+class lab_result_cm_finalize(CDMScriptTask):
+    script = Script.lab_result_cm_finalize
+
+    def requires(self):
+        return CDMScriptTask.requires(self) + [lab_result_cm_wrapper()]
+
+
+class lab_result_cm_group(CDMPatientGroupTask):
+    script = Script.lab_result_cm_group
+
+
+class lab_result_cm_initialize(CDMScriptTask):
+    script = Script.lab_result_cm_initialize
+
+
+class lab_result_cm_wrapper(_PatientNumGrouped):
+    group_tasks = [lab_result_cm_group]
+
+
+class med_admin_finalize(CDMScriptTask):
+    script = Script.med_admin_finalize
+
+    def requires(self):
+        return CDMScriptTask.requires(self) + [med_admin_wrapper()]
+
+
+class med_admin_group(CDMPatientGroupTask):
+    script = Script.med_admin_group
+
+
+class med_admin_initialize(CDMScriptTask):
+    script = Script.med_admin_initialize
+
+
+class med_admin_wrapper(_PatientNumGrouped):
+    group_tasks = [med_admin_group]
+
+
+class obs_clin(CDMScriptTask):
+    script = Script.obs_clin
+
+
+class obs_gen(CDMScriptTask):
+    script = Script.obs_gen
+
+
 class pcornet_init(CDMScriptTask):
     script = Script.pcornet_init
 
@@ -176,21 +287,81 @@ class pcornet_trial(CDMScriptTask):
     script = Script.pcornet_trial
 
 
-class prescribing(CDMScriptTask):
-    script = Script.prescribing
+class prescribing_finalize(CDMScriptTask):
+    script = Script.prescribing_finalize
+
+    def requires(self):
+        return CDMScriptTask.requires(self) + [prescribing_wrapper()]
+
+
+class prescribing_group(CDMPatientGroupTask):
+    script = Script.prescribing_group
+
+
+class prescribing_initialize(CDMScriptTask):
+    script = Script.prescribing_initialize
+
+
+class prescribing_wrapper(_PatientNumGrouped):
+    group_tasks = [prescribing_group]
 
 
 class pro_cm(CDMScriptTask):
     script = Script.pro_cm
 
 
-class procedures(CDMScriptTask):
-    script = Script.procedures
+class procedures_finalize(CDMScriptTask):
+    script = Script.procedures_finalize
+
+    def requires(self):
+        return CDMScriptTask.requires(self) + [procedures_wrapper()]
 
 
-class provider(CDMScriptTask):
-    script = Script.provider
+class procedures_group(CDMPatientGroupTask):
+    script = Script.procedures_group
 
 
-class vital(CDMScriptTask):
-    script = Script.vital
+class procedures_initialize(CDMScriptTask):
+    script = Script.procedures_initialize
+
+
+class procedures_wrapper(_PatientNumGrouped):
+    group_tasks = [procedures_group]
+
+
+class provider_finalize(CDMScriptTask):
+    script = Script.provider_finalize
+
+    def requires(self):
+        return CDMScriptTask.requires(self) + [provider_wrapper()]
+
+
+class provider_group(CDMPatientGroupTask):
+    script = Script.provider_group
+
+
+class provider_initialize(CDMScriptTask):
+    script = Script.provider_initialize
+
+
+class provider_wrapper(_PatientNumGrouped):
+    group_tasks = [provider_group]
+
+
+class vital_finalize(CDMScriptTask):
+    script = Script.vital_finalize
+
+    def requires(self):
+        return CDMScriptTask.requires(self) + [vital_wrapper()]
+
+
+class vital_group(CDMPatientGroupTask):
+    script = Script.vital_group
+
+
+class vital_initialize(CDMScriptTask):
+    script = Script.vital_initialize
+
+
+class vital_wrapper(_PatientNumGrouped):
+    group_tasks = [vital_group]
