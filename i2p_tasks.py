@@ -27,7 +27,6 @@ class CDMPatientGroupTask(CDMScriptTask):
     patient_num_qty = IntParam(significant=False, default=-1)
     group_num = IntParam(significant=False, default=-1)
     group_qty = IntParam(significant=False, default=-1)
-    resources = {'patient_group_resource':1}
 
     def run(self) -> None:
         SqlScriptTask.run_bound(self, script_params=dict(
@@ -91,6 +90,7 @@ class patient_chunks_survey(SqlScriptTask):
 
 class condition_finalize(CDMScriptTask):
     script = Script.condition_finalize
+    resources = {'condition_group_resource': 1}
 
     def requires(self):
         return CDMScriptTask.requires(self) + [condition_wrapper()]
@@ -110,6 +110,7 @@ class condition_wrapper(_PatientNumGrouped):
 
 class death_finalize(CDMScriptTask):
     script = Script.death_finalize
+    resources = {'death_group_resource': 1}
 
     def requires(self):
         return CDMScriptTask.requires(self) + [death_wrapper()]
@@ -152,6 +153,7 @@ class demographic_wrapper(_PatientNumGrouped):
 
 class diagnosis_finalize(CDMScriptTask):
     script = Script.diagnosis_finalize
+    resources = {'diagnosis_group_resource': 1}
 
     def requires(self):
         return CDMScriptTask.requires(self) + [diagnosis_wrapper()]
@@ -171,6 +173,7 @@ class diagnosis_wrapper(_PatientNumGrouped):
 
 class dispensing_finalize(CDMScriptTask):
     script = Script.dispensing_finalize
+    resources = {'dispensing_group_resource': 1}
 
     def requires(self):
         return CDMScriptTask.requires(self) + [dispensing_wrapper()]
