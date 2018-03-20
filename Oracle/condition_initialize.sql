@@ -8,7 +8,7 @@ END;
 /
 CREATE TABLE condition(
 	CONDITIONID varchar(19)  primary key,
-	PATID varchar(50) NOT NULL,
+	PATID number(38, 0) NOT NULL,
 	ENCOUNTERID  varchar(50) NULL,
 	REPORT_DATE  date NULL,
 	RESOLVE_DATE  date NULL,

@@ -27,6 +27,7 @@ class CDMPatientGroupTask(CDMScriptTask):
     patient_num_qty = IntParam(significant=False, default=-1)
     group_num = IntParam(significant=False, default=-1)
     group_qty = IntParam(significant=False, default=-1)
+    resources = {'patient_group_resource':1}
 
     def run(self) -> None:
         SqlScriptTask.run_bound(self, script_params=dict(
@@ -93,6 +94,7 @@ class condition_finalize(CDMScriptTask):
 
     def requires(self):
         return CDMScriptTask.requires(self) + [condition_wrapper()]
+
 
 class condition_group(CDMPatientGroupTask):
     script = Script.condition_group
@@ -166,7 +168,7 @@ class diagnosis_initialize(CDMScriptTask):
 class diagnosis_wrapper(_PatientNumGrouped):
     group_tasks = [diagnosis_group]
 
-'''
+
 class dispensing_finalize(CDMScriptTask):
     script = Script.dispensing_finalize
 
@@ -186,6 +188,7 @@ class dispensing_wrapper(_PatientNumGrouped):
     group_tasks = [dispensing_group]
 
 
+'''
 class encounter_finalize(CDMScriptTask):
     script = Script.encounter_finalize
 
@@ -230,12 +233,11 @@ class harvest(CDMScriptTask):
 
     def requires(self):
         return CDMScriptTask.requires(self) + [condition_finalize(), death_finalize(), death_cause(), diagnosis_finalize(),
-                                               dispensing(), enrollment(), lab_result_cm(), med_admin(), obs_clin(),
+                                               dispensing_finalize(), enrollment(), lab_result_cm(), med_admin(), obs_clin(),
                                                obs_gen(), pcornet_trial(), prescribing(), pro_cm(), procedures(),
                                                provider(), vital()]
 
 
-'''
 class lab_result_cm_finalize(CDMScriptTask):
     script = Script.lab_result_cm_finalize
 
@@ -255,6 +257,7 @@ class lab_result_cm_wrapper(_PatientNumGrouped):
     group_tasks = [lab_result_cm_group]
 
 
+'''
 class med_admin_finalize(CDMScriptTask):
     script = Script.med_admin_finalize
 
@@ -387,8 +390,8 @@ class demographic(CDMScriptTask):
     script = Script.demographic
 
 
-class dispensing(CDMScriptTask):
-    script = Script.dispensing
+#class dispensing(CDMScriptTask):
+#    script = Script.dispensing
 
 
 class encounter(CDMScriptTask):

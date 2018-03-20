@@ -117,7 +117,7 @@ where c_fullname LIKE '\PCORI_MOD\RESULT_LOC\%';
 execute immediate 'create index location_idx on location (patient_num, encounter_num, provider_id, concept_cd, start_date)';
 GATHER_TABLE_STATS('LOCATION');
 
-INSERT INTO lab_result_cm
+INSERT /*+ APPEND*/ INTO lab_result_cm
       (PATID
       ,ENCOUNTERID
       ,LAB_NAME

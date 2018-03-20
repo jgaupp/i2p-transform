@@ -7,7 +7,7 @@ PMN_DROPSQL('DROP TABLE death');
 END;
 /
 CREATE TABLE death(
-	PATID varchar(50) NOT NULL,
+	PATID number(38, 0) NOT NULL,
 	DEATH_DATE date NOT NULL,
 	DEATH_DATE_IMPUTE varchar(2) NULL,
 	DEATH_SOURCE varchar(2) NOT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE death(
 create or replace procedure PCORNetDeath(patient_num_first int, patient_num_last int) as
 begin
 
-insert into death( patid, death_date, death_date_impute, death_source, death_match_confidence)
+insert /*+ APPEND*/ into death( patid, death_date, death_date_impute, death_source, death_match_confidence)
 select distinct pat.patient_num, pat.death_date,
 case when vital_status_cd like 'X%' then 'B'
   when vital_status_cd like 'M%' then 'D'
