@@ -90,7 +90,6 @@ class patient_chunks_survey(SqlScriptTask):
 
 class condition_finalize(CDMScriptTask):
     script = Script.condition_finalize
-    resources = {'condition_group_resource': 1}
 
     def requires(self):
         return CDMScriptTask.requires(self) + [condition_wrapper()]
@@ -98,6 +97,7 @@ class condition_finalize(CDMScriptTask):
 
 class condition_group(CDMPatientGroupTask):
     script = Script.condition_group
+    resources = {'condition_group_resource': 1}
 
 
 class condition_initialize(CDMScriptTask):
@@ -110,7 +110,6 @@ class condition_wrapper(_PatientNumGrouped):
 
 class death_finalize(CDMScriptTask):
     script = Script.death_finalize
-    resources = {'death_group_resource': 1}
 
     def requires(self):
         return CDMScriptTask.requires(self) + [death_wrapper()]
@@ -118,6 +117,7 @@ class death_finalize(CDMScriptTask):
 
 class death_group(CDMPatientGroupTask):
     script = Script.death_group
+    resources = {'death_group_resource': 1}
 
 
 class death_initialize(CDMScriptTask):
@@ -153,7 +153,6 @@ class demographic_wrapper(_PatientNumGrouped):
 
 class diagnosis_finalize(CDMScriptTask):
     script = Script.diagnosis_finalize
-    resources = {'diagnosis_group_resource': 1}
 
     def requires(self):
         return CDMScriptTask.requires(self) + [diagnosis_wrapper()]
@@ -161,6 +160,7 @@ class diagnosis_finalize(CDMScriptTask):
 
 class diagnosis_group(CDMPatientGroupTask):
     script = Script.diagnosis_group
+    resources = {'diagnosis_group_resource': 1}
 
 
 class diagnosis_initialize(CDMScriptTask):
@@ -173,7 +173,6 @@ class diagnosis_wrapper(_PatientNumGrouped):
 
 class dispensing_finalize(CDMScriptTask):
     script = Script.dispensing_finalize
-    resources = {'dispensing_group_resource': 1}
 
     def requires(self):
         return CDMScriptTask.requires(self) + [dispensing_wrapper()]
@@ -181,7 +180,7 @@ class dispensing_finalize(CDMScriptTask):
 
 class dispensing_group(CDMPatientGroupTask):
     script = Script.dispensing_group
-
+    resources = {'dispensing_group_resource': 1}
 
 class dispensing_initialize(CDMScriptTask):
     script = Script.dispensing_initialize
