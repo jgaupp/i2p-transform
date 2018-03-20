@@ -6,8 +6,6 @@ BEGIN
 pcornetdeath(:patient_num_first, :patient_num_last);
 END;
 /
-commit
-/
 insert into cdm_status (status, last_update, records, group_start, group_end) select 'death_group', sysdate, count(distinct patid), :patient_num_first, :patient_num_last
 from death where patid between cast(:patient_num_first as number) and cast(:patient_num_last as number)
 /

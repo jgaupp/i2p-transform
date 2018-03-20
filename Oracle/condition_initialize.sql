@@ -69,7 +69,7 @@ END;
 create or replace procedure PCORNetCondition(patient_num_first int, patient_num_last int) as
 begin
 
-insert into sourcefact2
+insert /*+ APPEND*/ into sourcefact2
 	select distinct patient_num, encounter_num, provider_id, concept_cd, start_date, dxsource.pcori_basecode dxsource, dxsource.c_fullname
 	from i2b2fact factline
     inner join encounter enc on enc.patid = factline.patient_num and enc.encounterid = factline.encounter_Num
@@ -77,7 +77,9 @@ insert into sourcefact2
 	where dxsource.c_fullname like '\PCORI_MOD\CONDITION_OR_DX\%'
     and patient_num between patient_num_first and patient_num_last;
 
-insert into condition (patid, encounterid, report_date, resolve_date, condition, condition_type, condition_status, condition_source)
+commit;
+
+insert /*+ APPEND*/ into condition (patid, encounterid, report_date, resolve_date, condition, condition_type, condition_status, condition_source)
 select distinct factline.patient_num, min(factline.encounter_num) encounterid, min(factline.start_date) report_date, NVL(max(factline.end_date),null) resolve_date, diag.pcori_basecode,
 SUBSTR(diag.c_fullname,18,2) condition_type,
 	NVL2(max(factline.end_date) , 'RS', 'NI') condition_status, -- Imputed so might not be entirely accurate
@@ -97,6 +99,8 @@ and factline.patient_num between patient_num_first and patient_num_last
 group by factline.patient_num, diag.pcori_basecode, diag.c_fullname
 log errors into ERR$_CONDITION reject limit unlimited
 ;
+
+commit;
 
 end PCORNetCondition;
 /

@@ -42,6 +42,8 @@ from (
 where (pat.death_date is not null or vital_status_cd like 'Z%') and pat.patient_num in (select patid from demographic)
 and pat.patient_num between patient_num_first and patient_num_last;
 
+commit;
+
 end;
 /
 insert into cdm_status (status, last_update) select 'death_initialize', sysdate from dual

@@ -107,7 +107,7 @@ END;
 create or replace procedure PCORNetDiagnosis(patient_num_first int, patient_num_last int) as
 begin
 
-insert into sourcefact
+insert /*+ APPEND*/ into sourcefact
 	select distinct patient_num, encounter_num, provider_id, concept_cd, start_date, dxsource.pcori_basecode dxsource, dxsource.c_fullname
 	from i2b2fact factline
     inner join encounter enc on enc.patid = factline.patient_num and enc.encounterid = factline.encounter_Num
@@ -115,7 +115,9 @@ insert into sourcefact
 	where dxsource.c_fullname like '\PCORI_MOD\CONDITION_OR_DX\%'
 	and factline.patient_num between patient_num_first and patient_num_last;
 
-insert into pdxfact
+commit;
+
+insert /*+ APPEND*/ into pdxfact
 	select distinct patient_num, encounter_num, provider_id, concept_cd, start_date, dxsource.pcori_basecode pdxsource,dxsource.c_fullname
 	from i2b2fact factline
     inner join encounter enc on enc.patid = factline.patient_num and enc.encounterid = factline.encounter_Num
@@ -123,7 +125,9 @@ insert into pdxfact
 	and dxsource.c_fullname like '\PCORI_MOD\PDX\%'
 	where factline.patient_num between patient_num_first and patient_num_last;
 
-insert into originfact --CDM 3.1 addition
+commit;
+
+insert /*+ APPEND*/ into originfact --CDM 3.1 addition
 	select patient_num, encounter_num, provider_id, concept_cd, start_date, dxsource.pcori_basecode originsource, dxsource.c_fullname
 	from i2b2fact factline
     inner join ENCOUNTER enc on enc.patid = factline.patient_num and enc.encounterid = factline.encounter_Num
@@ -131,7 +135,9 @@ insert into originfact --CDM 3.1 addition
 	and dxsource.c_fullname like '\PCORI_MOD\DX_ORIGIN\%'
 	where factline.patient_num between patient_num_first and patient_num_last;
 
-insert into diagnosis (patid,	encounterid, enc_type, admit_date, providerid, dx, dx_type, dx_source, dx_origin, pdx)
+commit;
+
+insert /*+ APPEND*/ into diagnosis (patid,	encounterid, enc_type, admit_date, providerid, dx, dx_type, dx_source, dx_origin, pdx)
 /* KUMC started billing with ICD10 on Oct 1, 2015. */
 with icd10_transition as (
   select date '2015-10-01' as cutoff from dual
@@ -238,6 +244,8 @@ where (sourcefact.c_fullname like '\PCORI_MOD\CONDITION_OR_DX\DX_SOURCE\%' or so
 and factline.patient_num between patient_num_first and patient_num_last
 -- order by enc.admit_date desc
 ;
+
+commit;
 
 end PCORNetDiagnosis;
 /

@@ -145,6 +145,8 @@ left outer join disp_supply ds
   and st.patient_num between patient_num_first and patient_num_last
 ;
 
+commit;
+
 /* NOTE: The original SCILHS transformation is below.
 
 -- insert data with outer joins to ensure all records are included even if some data elements are missing
