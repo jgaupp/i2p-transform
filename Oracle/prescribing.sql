@@ -9,8 +9,8 @@ END;
 /
 CREATE TABLE prescribing(
 	PRESCRIBINGID varchar(19)  primary key,
-	PATID varchar(50) NOT NULL,
-	ENCOUNTERID  varchar(50) NULL,
+	PATID number(38, 0) NOT NULL,
+	ENCOUNTERID  number(38, 0) NULL,
 	RX_PROVIDERID varchar(50) NULL, -- NOTE: The spec has a _ before the ID, but this is inconsistent.
 	RX_ORDER_DATE date NULL,
 	RX_ORDER_TIME varchar (5) NULL,

@@ -8,8 +8,8 @@ END;
 /
 CREATE TABLE med_admin(
     MEDADMINID varchar(50) primary key,
-    PATID varchar(50) NOT NULL,
-    ENCOUNTERID varchar(50) NULL,
+    PATID number(38, 0) NOT NULL,
+    ENCOUNTERID number(38, 0) NULL,
     PRESCRIBINGID varchar(50) NULL,
     MEDADMIN_PROVIDERID varchar(50) NULL,
     MEDADMIN_START_DATE date NOT NULL,

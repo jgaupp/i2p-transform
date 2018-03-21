@@ -9,7 +9,7 @@ END;
 CREATE TABLE diagnosis(
 	DIAGNOSISID varchar(19)  primary key,
 	PATID number(38, 0) NOT NULL,
-	ENCOUNTERID varchar(50) NOT NULL,
+	ENCOUNTERID number(38, 0) NOT NULL,
 	ENC_TYPE varchar(2) NULL,
 	ADMIT_DATE date NULL,
 	PROVIDERID varchar(50) NULL,

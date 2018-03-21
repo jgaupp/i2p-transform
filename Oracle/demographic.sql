@@ -7,7 +7,7 @@ PMN_DROPSQL('DROP TABLE demographic');
 END;
 /
 CREATE TABLE demographic(
-    PATID varchar(50) NOT NULL,
+    PATID number(38, 0) NOT NULL,
     BIRTH_DATE date NULL,
     BIRTH_TIME varchar(5) NULL,
     SEX varchar(2) NULL,

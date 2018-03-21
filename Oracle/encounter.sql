@@ -8,8 +8,8 @@ PMN_DROPSQL('DROP TABLE encounter');
 END;
 /
 CREATE TABLE encounter(
-	PATID varchar(50) NOT NULL,
-	ENCOUNTERID varchar(50) NOT NULL,
+	PATID number(38, 0) NOT NULL,
+	ENCOUNTERID number(38, 0) NOT NULL,
 	ADMIT_DATE date NULL,
 	ADMIT_TIME varchar(5) NULL,
 	DISCHARGE_DATE date NULL,

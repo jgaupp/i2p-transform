@@ -7,7 +7,7 @@ PMN_DROPSQL('DROP TABLE pcornet_trial');
 END;
 /
 CREATE TABLE pcornet_trial(
-	PATID varchar(50) NOT NULL,
+	PATID number(38, 0) NOT NULL,
 	TRIALID varchar(20) NOT NULL,
 	PARTICIPANTID varchar(50) NOT NULL,
 	TRIAL_SITEID varchar(50) NULL,

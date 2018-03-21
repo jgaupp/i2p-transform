@@ -7,7 +7,7 @@ PMN_DROPSQL('DROP TABLE enrollment');
 END;
 /
 CREATE TABLE enrollment (
-	PATID varchar(50) NOT NULL,
+	PATID number(38, 0) NOT NULL,
 	ENR_START_DATE date NOT NULL,
 	ENR_END_DATE date NULL,
 	CHART varchar(1) NULL,

@@ -9,8 +9,8 @@ END;
 /
 CREATE TABLE lab_result_cm(
 	LAB_RESULT_CM_ID varchar(19)  primary key,
-	PATID varchar(50) NOT NULL,
-	ENCOUNTERID varchar(50) NULL,
+	PATID number(38, 0) NOT NULL,
+	ENCOUNTERID number(38, 0) NULL,
 	LAB_NAME varchar(10) NULL,
 	SPECIMEN_SOURCE varchar(10) NULL,
 	LAB_LOINC varchar(10) NULL,

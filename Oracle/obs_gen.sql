@@ -7,8 +7,8 @@ END;
 /
 CREATE TABLE obs_gen(
     OBSGENID varchar(50) NOT NULL,
-    PATID varchar(50) NOT NULL,
-    ENCOUNTERID varchar(50) NULL,
+    PATID number(38, 0) NOT NULL,
+    ENCOUNTERID number(38, 0) NULL,
     OBSGEN_PROVIDERID varchar(50) NULL,
     OBSGEN_DATE date NULL,
     OBSGEN_TIME varchar(5) NULL,

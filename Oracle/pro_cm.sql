@@ -8,8 +8,8 @@ END;
 /
 CREATE TABLE pro_cm(
 	PRO_CM_ID varchar(19)  primary key,
-	PATID varchar(50) NOT NULL,
-	ENCOUNTERID  varchar(50) NULL,
+	PATID number(38, 0) NOT NULL,
+	ENCOUNTERID  number(38, 0) NULL,
 	PRO_ITEM varchar (20) NOT NULL,
 	PRO_LOINC varchar (10) NULL,
 	PRO_DATE date NOT NULL,

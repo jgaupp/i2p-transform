@@ -7,8 +7,8 @@ END;
 /
 CREATE TABLE obs_clin(
     OBSCLINID varchar(50) NOT NULL,
-    PATID varchar(50) NOT NULL,
-    ENCOUNTERID varchar(50) NULL,
+    PATID number(38, 0) NOT NULL,
+    ENCOUNTERID number(38, 0) NULL,
     OBSCLIN_PROVIDERID varchar(50) NULL,
     OBSCLIN_DATE date NULL,
     OBSCLIN_TIME varchar(5) NULL,
