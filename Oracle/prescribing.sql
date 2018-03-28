@@ -269,5 +269,4 @@ END;
 /
 insert into cdm_status (status, last_update, records) select 'prescribing', sysdate, count(*) from prescribing
 /
-select 1 from cdm_status where status = 'prescribing'
---SELECT count(PRESCRIBINGID) from prescribing where rownum = 1
+select case when records > 0 then 1 else 0 end from cdm_status where status = 'prescribing'

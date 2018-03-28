@@ -1,6 +1,7 @@
 /** obs_gen - create the obs_clin table.
 */
-
+select synonym_name from all_synonyms where 'dep' = 'pcornet_init.sql'
+/
 BEGIN
 PMN_DROPSQL('DROP TABLE obs_clin');
 END;

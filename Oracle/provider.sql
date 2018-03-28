@@ -1,6 +1,7 @@
 /** provider - create and populate the provider table.
 */
-
+select synonym_name from all_synonyms where 'dep' = 'pcornet_init.sql'
+/
 BEGIN
 PMN_DROPSQL('DROP TABLE provider');
 END;

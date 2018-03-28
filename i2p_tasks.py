@@ -155,6 +155,7 @@ class diagnosis_finalize(CDMScriptTask):
     script = Script.diagnosis_finalize
 
     def requires(self):
+        #TODO: This should depend on a check that H2P mapping mapped the DX_IDs
         return CDMScriptTask.requires(self) + [diagnosis_wrapper()]
 
 
@@ -181,6 +182,7 @@ class dispensing_finalize(CDMScriptTask):
 class dispensing_group(CDMPatientGroupTask):
     script = Script.dispensing_group
     resources = {'dispensing_group_resource': 1}
+
 
 class dispensing_initialize(CDMScriptTask):
     script = Script.dispensing_initialize

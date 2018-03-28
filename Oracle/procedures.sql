@@ -64,5 +64,4 @@ END;
 /
 insert into cdm_status (status, last_update, records) select 'procedures', sysdate, count(*) from procedures
 /
-select 1 from cdm_status where status = 'procedures'
---SELECT count(PATID) from procedures where rownum = 1
+select case when records > 0 then 1 else 0 end from cdm_status where status = 'procedures'
